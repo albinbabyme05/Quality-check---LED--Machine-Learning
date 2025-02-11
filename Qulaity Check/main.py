@@ -28,3 +28,25 @@ def descriptFinder(images):
 
 descriptor_list = descriptFinder(images=images)
 print(f"Total descriptors extracted: {len(descriptor_list)}")
+
+
+
+def cameraDescriptor(image, descriptor_list):
+    """Match features from camera frame against stored descriptors"""
+    camKeypoint, camDescriptor = orb.detectAndCompute(image, None)
+    bf = cv2.BFMatcher()
+    finalMatchList = []
+    finalValue = -1  # Default value
+
+    try:
+        for descript in descriptor_list:
+            matches = bf.knnMatch(descript, camDescriptor, k=2)
+            good_matches = [m for m, n in matches if m.distance < 0.75 * n.distance]
+            finalMatchList.append(len(good_matches))
+    except:
+        pass
+
+    if finalMatchList and max(finalMatchList) > 10:  # Threshold for matching
+        finalValue = finalMatchList.index(max(finalMatchList))
+
+    return finalValue
