@@ -71,3 +71,36 @@ while True:
         break
 cap.release()
 cv2.destroyAllWindows()
+
+
+# """Loading two test images"""
+# image1 = cv2.imread('test/LED.jpg', 0)
+# image2 = cv2.imread('train/switch3.jpg', 0)
+
+# """Resizing the images"""
+# image1 = cv2.resize(image1, (800, 600))
+# image2 = cv2.resize(image2, (800, 600))
+
+# """Detect and Compute ORB Features"""
+# point_1, description_1 = orb.detectAndCompute(image1, None)
+# point_2, description_2 = orb.detectAndCompute(image2, None)
+
+# """Brute-Force Matching"""
+# bf = cv2.BFMatcher()
+# matches = bf.knnMatch(description_1, description_2, k=2)
+
+# good_matches = []
+# for m, n in matches:
+#     if m.distance < 0.75 * n.distance:
+#         good_matches.append([m])
+
+# print(f"Number of good matches: {len(good_matches)}")
+# image3 = cv2.drawMatchesKnn(image1, point_1, image2, point_2, good_matches, None, flags=2)
+
+# """Display images"""
+# cv2.imshow('Image1', image1)
+# cv2.imshow('Image2', image2)
+# cv2.imshow('Matched Features', image3)
+
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
