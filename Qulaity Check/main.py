@@ -50,3 +50,24 @@ def cameraDescriptor(image, descriptor_list):
         finalValue = finalMatchList.index(max(finalMatchList))
 
     return finalValue
+
+
+
+cap = cv2.VideoCapture(0)
+while True:
+    ret, frame = cap.read()
+    original_frame = frame.copy()
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    descriptor_id = cameraDescriptor(frame, descriptor_list)
+    if descriptor_id != -1:
+        cv2.putText(original_frame, class_names[descriptor_id], (50, 50),
+                    cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
+
+    cv2.imshow('Frame image', original_frame)
+    key = cv2.waitKey(1) % 256
+    if key == 27:  # Escape key to exit
+        print("Escape pressed. Closing the application")
+        break
+cap.release()
+cv2.destroyAllWindows()
